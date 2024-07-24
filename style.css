@@ -43,3 +43,7 @@ body {
 .ind3 {
 	text-indent: 9%;
 }
+
+p {
+	background-color: #3e8fb0;
+}
