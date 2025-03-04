@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Maple's Cipher</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="truebody">
+      <div class="window">
+        <p>terminal.exe<span style="float: right">🗕 🗗 🗙</span></p>
+      </div>
+
+      <div class="content">
+        <h2>~/cipher/</h2>
+        <p>> hello! this is a little cipher i designed, It's pretty neat!</p>
+        <hr />
+
+        <textarea id="cipher_input" class="inputbox" name="w3review">Enter your cipher</textarea>
+        <br />
+
+        <input type="text" id="key" /> <button onclick="submit()">convert</button>
+
+        <br />
+        <br />
+        <hr />
+        <br />
+
+        <h4 id="output"></h4>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  var letterconversion = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", "#", "7"];
+
+  function submit() {
+    var key = document.getElementById("key").value.toLowerCase();
+    var code = document.getElementById("cipher_input").value.toLowerCase();
+
+    var answer = "";
+
+    for (i = 0; i < code.length; i++) {
+      var valueOfLetter = code[i];
+      var indexInalpha = letterconversion.indexOf(valueOfLetter);
+
+      var y = i;
+      while (y >= key.length) {
+        y -= key.length;
+      }
+
+      valueToAdd = letterconversion.indexOf(key[y]);
+      console.log(valueToAdd);
+
+      finalvalue = indexInalpha + valueToAdd;
+      if (finalvalue > 30) {
+        finalvalue -= 30;
+      }
+      answer += letterconversion[finalvalue];
+    }
+    console.log(answer);
+    document.getElementById("output").innerHTML = answer;
+  }
+</script>
