@@ -14,19 +14,35 @@
       <div class="content">
         <h2>~/cipher/</h2>
         <p>> hello! this is a little cipher i designed, It's pretty neat!</p>
-        <hr />
 
-        <textarea id="cipher_input" class="inputbox" name="w3review">Enter your cipher</textarea>
+        <h3>encode_text</h3>
+
+        <textarea id="cipher_input" class="textinput fullwidth" name="w3review">Enter your cipher</textarea>
         <br />
 
-        <input type="text" id="key" /> <button onclick="submit()">convert</button>
+        <input type="text" id="key" class="textinput" /> <button onclick="submit()">convert</button>
 
         <br />
         <br />
-        <hr />
         <br />
 
         <h4 id="output"></h4>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <h3>decrypt_text</h3>
+
+        <textarea id="real_text_input" class="textinput fullwidth">Enter the text you would like to encode</textarea>
+        <input type="text" id="key2" class="textinput" /> <button onclick="submit2()">convert</button>
+
+        <br />
+        <br />
+        <br />
+
+        <h4 id="output2"></h4>
       </div>
     </div>
   </body>
@@ -35,31 +51,79 @@
 <script>
   var letterconversion = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", "#", "7"];
 
+  function output(id, string) {
+    document.getElementById(id).innerHTML = "> " + string;
+  }
+
   function submit() {
     var key = document.getElementById("key").value.toLowerCase();
     var code = document.getElementById("cipher_input").value.toLowerCase();
 
     var answer = "";
 
-    for (i = 0; i < code.length; i++) {
-      var valueOfLetter = code[i];
-      var indexInalpha = letterconversion.indexOf(valueOfLetter);
+    if (key == "") {
+      output("output", "Please enter a key");
+    } else if (code == "") {
+      output("output", "Please enter a code");
+    } else {
+      for (i = 0; i < code.length; i++) {
+        var valueOfLetter = code[i];
+        var indexInalpha = letterconversion.indexOf(valueOfLetter);
 
-      var y = i;
-      while (y >= key.length) {
-        y -= key.length;
+        var y = i;
+        while (y >= key.length) {
+          y -= key.length;
+        }
+
+        valueToAdd = letterconversion.indexOf(key[y]);
+        console.log("convert to, value to add: " + valueToAdd);
+
+        finalvalue = indexInalpha + valueToAdd;
+        if (finalvalue > 30) {
+          finalvalue -= 30;
+        }
+        if (indexInalpha == -1) {
+        } else {
+          answer += letterconversion[finalvalue];
+        }
       }
-
-      valueToAdd = letterconversion.indexOf(key[y]);
-      console.log(valueToAdd);
-
-      finalvalue = indexInalpha + valueToAdd;
-      if (finalvalue > 30) {
-        finalvalue -= 30;
-      }
-      answer += letterconversion[finalvalue];
+      output("output", answer);
     }
-    console.log(answer);
-    document.getElementById("output").innerHTML = answer;
+  }
+
+  function submit2() {
+    var key = document.getElementById("key2").value.toLowerCase();
+    var text = document.getElementById("real_text_input").value.toLowerCase();
+
+    var answer = "";
+
+    if (key == "") {
+      output("output2", "Please enter a key");
+    } else if (text == "") {
+      output("output2", "Please enter a code");
+    } else {
+      for (i = 0; i < text.length; i++) {
+        var valueOfLetter = text[i];
+        var indexInalpha = letterconversion.indexOf(valueOfLetter);
+
+        var y = i;
+        while (y >= key.length) {
+          y -= key.length;
+        }
+
+        valueToAdd = letterconversion.indexOf(key[y]);
+        console.log("convert back, value to add: " + valueToAdd);
+
+        finalvalue = indexInalpha - valueToAdd;
+        if (finalvalue < 0) {
+          finalvalue += 30;
+        }
+        if (indexInalpha == -1) {
+        } else {
+          answer += letterconversion[finalvalue];
+        }
+      }
+      output("output2", answer);
+    }
   }
 </script>
