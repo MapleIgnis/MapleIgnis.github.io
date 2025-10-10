@@ -81,6 +81,14 @@ hr {
   text-indent: 9%;
 }
 
+textarea {
+  background: none;
+  border: none;
+  outline: none;
+  resize: none;
+  color: inherit;
+}
+
 .textinput {
   color: var(--text);
   background-color: var(--base);
