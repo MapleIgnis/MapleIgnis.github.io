@@ -68,23 +68,27 @@
     } else {
       for (i = 0; i < code.length; i++) {
         var valueOfLetter = code[i];
-        var indexInalpha = letterconversion.indexOf(valueOfLetter);
+        if (valueOfLetter in letterconversion) {
+          var indexInalpha = letterconversion.indexOf(valueOfLetter);
 
-        var y = i;
-        while (y >= key.length) {
-          y -= key.length;
-        }
+          var y = i;
+          while (y >= key.length) {
+            y -= key.length;
+          }
 
-        valueToAdd = letterconversion.indexOf(key[y]);
-        console.log("convert to, value to add: " + valueToAdd);
+          valueToAdd = letterconversion.indexOf(key[y]);
+          console.log("convert to, value to add: " + valueToAdd);
 
-        finalvalue = indexInalpha + valueToAdd;
-        if (finalvalue > 30) {
-          finalvalue -= 30;
-        }
-        if (indexInalpha == -1) {
+          finalvalue = indexInalpha + valueToAdd;
+          if (finalvalue >= 30) {
+            finalvalue -= 30;
+          }
+          if (indexInalpha == -1) {
+          } else {
+            answer += letterconversion[finalvalue];
+          }
         } else {
-          answer += letterconversion[finalvalue];
+          answer += valueOfLetter;
         }
       }
       output("output", answer);
@@ -116,7 +120,7 @@
 
         finalvalue = indexInalpha - valueToAdd;
         if (finalvalue < 0) {
-          finalvalue += 30;
+          finalvalue += letterconversion.length;
         }
         if (indexInalpha == -1) {
         } else {
